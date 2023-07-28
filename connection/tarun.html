@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Packet Metadata Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="filterInput" placeholder="Filter by Source IP, Destination IP, or Port...">
+    <table id="metadataTable">
+        <thead>
+            <tr>
+                <th>Source IP</th>
+                <th>Destination IP</th>
+                <th>Source Port</th>
+                <th>Destination Port</th>
+                <th>Sequence Number</th>
+                <th>Acknowledgment Number</th>
+                <th>Flags</th>
+                <th>Window Size</th>
+            </tr>
+        </thead>
+        <tbody id="metadataBody">
+        </tbody>
+    </table>
+
+    <script>
+        // Function to create a table row from the JSON data
+        function createTableRow(metadata) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${metadata.src_ip}</td>
+                <td>${metadata.dst_ip}</td>
+                <td>${metadata.src_port}</td>
+                <td>${metadata.dst_port}</td>
+                <td>${metadata.seq_number}</td>
+                <td>${metadata.ack_number}</td>
+                <td>${metadata.flags}</td>
+                <td>${metadata.window_size}</td>
+            `;
+            return row;
+        }
+
+        // Function to fetch the JSON data from the API and populate the table
+        async function populateTable() {
+            const response = await fetch('http://localhost:8086'); // Replace with your API endpoint
+            const data = await response.json();
+
+            // Ensure that the data contains a "rows" property
+            if (!data.hasOwnProperty('rows')) {
+                console.error('Invalid JSON data format: Missing "rows" property');
+                return;
+            }
+
+            const tableBody = document.getElementById('metadataBody');
+            data.rows.forEach(metadata => {
+                const row = createTableRow(metadata);
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to filter the table rows based on user input
+        function filterTable() {
+            const filterInput = document.getElementById('filterInput');
+            const filterValue = filterInput.value.toLowerCase();
+            const rows = document.querySelectorAll('#metadataTable tbody tr');
+
+            rows.forEach(row => {
+                const sourceIP = row.cells[0].innerText.toLowerCase();
+                const destIP = row.cells[1].innerText.toLowerCase();
+                const srcPort = row.cells[2].innerText.toLowerCase();
+                const destPort = row.cells[3].innerText.toLowerCase();
+
+                if (sourceIP.indexOf(filterValue) > -1 ||
+                    destIP.indexOf(filterValue) > -1 ||
+                    srcPort.indexOf(filterValue) > -1 ||
+                    destPort.indexOf(filterValue) > -1) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Call the function to populate the table when the page loads
+        window.onload = populateTable;
+
+        // Attach the filterTable function to the input event of the filter input
+        const filterInput = document.getElementById('filterInput');
+        filterInput.addEventListener('input', filterTable);
+    </script>
+</body>
+</html>

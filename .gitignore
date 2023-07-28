@@ -1,0 +1,10 @@
+# Ignore compiled binaries and build artifacts
+target/
+*.exe
+*.o
+
+# Ignore log files
+*.log
+
+# Ignore sensitive configuration files
+secret_config.toml
