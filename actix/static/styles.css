@@ -1,0 +1,33 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/static/background.jpg');
+    background-size: cover;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Add more CSS rules as needed for styling */

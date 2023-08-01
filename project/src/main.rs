@@ -9,10 +9,10 @@ use bincode;
 
 const DATABASE_URL: &str = "postgres://postgres:1234567@localhost:5432/demo"; // Replace with your database URL
 
-async fn handle_client(mut stream: TcpStream, db_client: Arc<Mutex<tokio_postgres::Client>>) {
+pub async fn handle_client(mut stream: TcpStream, db_client: Arc<Mutex<tokio_postgres::Client>>) {
     // Define the PacketMetadata struct here
     #[derive(Debug, serde::Serialize, serde::Deserialize)]
-    struct PacketMetadata {
+    pub struct PacketMetadata {
         src_ip: Option<String>,
         dst_ip: Option<String>,
         src_port: i32,
@@ -73,6 +73,7 @@ async fn handle_client(mut stream: TcpStream, db_client: Arc<Mutex<tokio_postgre
             }
         }
     }
+   
 }
 
 #[tokio::main]
@@ -103,3 +104,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+
+
+
+
+
+
