@@ -36,7 +36,7 @@
         const itemsPerPage = 10;
 
         async function fetchData() {
-            const response = await fetch("/"); // Update the URL to match the API route in the Rust code
+            const response = await fetch("/json"); // Update the URL to match the API route in the Rust code
             data = await response.json();
 
             renderData();
