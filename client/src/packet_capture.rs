@@ -3,11 +3,11 @@ use bincode::serialize;
 use pnet::datalink::{self, Channel::Ethernet};
 use pnet::packet::ipv4::Ipv4Packet;
 use pnet::packet::tcp::TcpPacket;
-// use tokio::io::AsyncWriteExt;
+
 use crate::packet_metadata::PacketMetadata;
 use async_std::net::TcpStream;
-// use tokio::net::TcpStream;
-use async_std::sync::Mutex; // Import Mutex from async_std
+
+use async_std::sync::Mutex;
 use std::sync::Arc;
 
 pub async fn packet_capture(write_stream: Arc<Mutex<TcpStream>>) {
@@ -71,7 +71,7 @@ pub async fn packet_capture(write_stream: Arc<Mutex<TcpStream>>) {
                             serialize(&packet_metadata).expect("Failed to serialize metadata");
 
                         // Send the metadata as a message to the server
-                        let mut stream = write_stream.lock().await; // Acquire the lock before writing
+                        let mut stream = write_stream.lock().await;
                         stream
                             .write_all(&metadata_bytes)
                             .await

@@ -13,4 +13,3 @@ pub struct PacketMetadata {
     pub window_size: i32,
 }
 
-// Add any additional functions related to PacketMetadata here if needed

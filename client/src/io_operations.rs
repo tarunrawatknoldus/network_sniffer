@@ -1,13 +1,12 @@
-use async_std::io::ReadExt; // Import ReadExt from async_std
-use async_std::io::WriteExt; // Import WriteExt from async_std
+use async_std::io::ReadExt; 
+use async_std::io::WriteExt; 
 use async_std::net::TcpStream;
-use async_std::sync::Mutex; // Import Mutex from async_std
+use async_std::sync::Mutex; 
 use std::sync::Arc;
 use tokio::runtime::Runtime;
-// use tokio::net::TcpStream;
 
 pub async fn io_operations(
-    rt: &Runtime,
+    _rt: &Runtime,
     stream_clone: &Arc<Mutex<TcpStream>>,
     input: &str,
 ) -> bool {

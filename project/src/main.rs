@@ -15,7 +15,7 @@ use crate::env::{SERVER_ADDRESS};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let db_client = connect_to_database().await?; // Remove DATABASE_URL argument here
+    let db_client = connect_to_database().await?;
 
     let db_client = Arc::new(Mutex::new(db_client));
 

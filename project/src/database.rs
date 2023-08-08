@@ -3,7 +3,7 @@ use tokio_postgres::Client;
 use tokio::sync::Mutex;
 use std::sync::Arc;
 use crate::PacketMetadata;
-use crate::env::DATABASE_URL; // Import the constant DATABASE_URL from env.rs
+use crate::env::DATABASE_URL;
 
 pub async fn connect_to_database() -> Result<Client, tokio_postgres::Error> {
     let (client, connection) = tokio_postgres::connect(DATABASE_URL, tokio_postgres::NoTls).await?;
