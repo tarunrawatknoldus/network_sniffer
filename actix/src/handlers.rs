@@ -1,7 +1,7 @@
 use actix_web::{web, HttpResponse};
 use crate::db::get_data_from_db;
 
-const DATABASE_URL: &str = "postgres://postgres:1234567@localhost:5432/demo"; // Replace with your database URL
+const DATABASE_URL: &str = "postgres://postgres:1234567@localhost:5432/demo";
 
 #[derive(Debug, serde::Serialize)]
 pub struct DatabaseRecord {

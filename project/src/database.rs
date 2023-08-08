@@ -17,7 +17,6 @@ pub async fn connect_to_database() -> Result<Client, tokio_postgres::Error> {
     Ok(client)
 }
 
-
 pub async fn store_metadata(db_client: &Arc<Mutex<Client>>, metadata: &PacketMetadata) -> Result<(), tokio_postgres::Error> {
     let db_client_lock = db_client.lock().await;
     db_client_lock.query(
