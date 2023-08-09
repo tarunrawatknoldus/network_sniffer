@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  backend:
+    build: 
+      context: ./project
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    depends_on:
+      - api
+
+  frontend:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8100:8000"  # Mapping to port 80 inside the container
+    networks:
+      - app_network
+    depends_on:
+      - backend
+
+  api:
+    build: 
+      context: ./actix
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
