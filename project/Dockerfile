@@ -18,4 +18,4 @@ WORKDIR /app
 COPY --from=Builder /app/network_sniffer /app/network_sniffer
 WORKDIR /app/network_sniffer/client
 EXPOSE 8000
-CMD ["cargo", "run"]
+CMD ["sudo", "cargo", "run"]

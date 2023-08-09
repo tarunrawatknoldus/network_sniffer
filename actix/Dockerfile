@@ -13,4 +13,4 @@ FROM rust:latest
 COPY --from=Builder /app/network_sniffer/actix/target/release/actix_app /app/
 WORKDIR /app
 EXPOSE 2000
-CMD ["./actix_app"]
+CMD ["sudo", "cargo", "run"]
